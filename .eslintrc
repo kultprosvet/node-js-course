@@ -12,7 +12,10 @@
     "prettier"
   ],
   "rules": {
-    "no-console": 2,       // Means warning
+    "no-console": 1,       // Means warning
     "prettier/prettier": 1 // Means error
+  },
+  "env": {
+    "node": true
   }
 }

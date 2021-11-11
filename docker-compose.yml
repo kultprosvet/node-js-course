@@ -1,0 +1,16 @@
+version: "3.1"
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: seecares-mysql
+    working_dir: /application
+    volumes:
+      - .mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+    ports:
+      - "3306:3306"
