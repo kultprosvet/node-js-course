@@ -3,7 +3,7 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: seecares-mysql
+    container_name: mysql
     working_dir: /application
     volumes:
       - .mysql:/var/lib/mysql
