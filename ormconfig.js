@@ -12,5 +12,5 @@ module.exports = {
   cli: {
     migrationsDir: 'src/typeorm/migrations',
   },
-  logging: true,
+  logging: 'all',
 }
