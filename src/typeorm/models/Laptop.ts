@@ -2,7 +2,9 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,13 +14,15 @@ import { Brand } from './Brand'
 import { ScreenSize } from './ScreenSize'
 import { ScreenResolution } from './ScreenResolution'
 import { Image } from './Image'
+import { Promotion } from './Promotion'
 @Entity('laptop')
 export class Laptop extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
   @Column({ type: 'varchar', length: 100 })
+  @Index({ unique: true })
   model: string
-  @Column({ type: 'decimal', width: 10, precision: 2 })
+  @Column({ type: 'decimal', width: 10, precision: 2, nullable: false })
   price: number
 
   @ManyToOne(() => Brand)
@@ -42,9 +46,15 @@ export class Laptop extends BaseEntity {
   )
   @JoinColumn({ name: 'screenResolutionId' })
   screenResolution: ScreenResolution
-  @RelationId('brand')
+  @RelationId('screenResolution')
   screenResolutionId: number
 
   @OneToMany(() => Image, (img) => img.laptop)
   images: Image[]
+
+  @ManyToMany(() => Promotion, (promotion) => promotion.laptops)
+  promotions: Promotion[]
+
+  @Column({ type: 'int', default: 0 })
+  quantity: number
 }

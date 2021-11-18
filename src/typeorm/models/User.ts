@@ -3,9 +3,10 @@ import {
   Column,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { Field } from 'mysql2'
+import { Order } from './Order'
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -18,4 +19,6 @@ export class User extends BaseEntity {
   password: string = ''
   @Column({ type: 'datetime' })
   createdAt: Date = new Date()
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[]
 }
