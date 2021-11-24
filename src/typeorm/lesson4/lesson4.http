@@ -1,0 +1,20 @@
+###
+POST http://localhost:3000/laptop
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="acer.jpg"
+
+< ./acer.jpg
+--WebAppBoundary--
+
+--WebAppBoundary
+Content-Disposition: form-data; name="data"
+
+{"model":"Acer XXX","price":100000,"brand":{"id":2}}
+--WebAppBoundary--
+###
+GET http://localhost:3000/laptop/images
+
+###
+DELETE http://localhost:3000/laptop/1

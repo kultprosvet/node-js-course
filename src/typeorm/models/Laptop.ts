@@ -1,6 +1,7 @@
 import {
   BaseEntity,
   Column,
+  DeleteDateColumn,
   Entity,
   Index,
   JoinColumn,
@@ -49,12 +50,15 @@ export class Laptop extends BaseEntity {
   @RelationId('screenResolution')
   screenResolutionId: number
 
-  @OneToMany(() => Image, (img) => img.laptop)
-  images: Image[]
+  @OneToMany(() => Image, (img) => img.laptop, { cascade: true })
+  images: Partial<Image>[]
 
   @ManyToMany(() => Promotion, (promotion) => promotion.laptops)
   promotions: Promotion[]
 
   @Column({ type: 'int', default: 0 })
   quantity: number
+
+  @DeleteDateColumn()
+  deletedAt: Date
 }

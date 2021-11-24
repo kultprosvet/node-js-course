@@ -1,0 +1,99 @@
+POST http://localhost:80/api/item
+Content-Type: application/x-www-form-urlencoded
+
+id=99&content=new-element
+
+###
+POST http://localhost:80/api/item
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="field-name"
+
+field-value
+--WebAppBoundary--
+
+###
+###
+POST http://localhost:3000/laptop
+Content-Type: application/json
+
+{
+  "model": "Apple Macbook Pro 2011",
+  "price": 100000,
+  "description": "",
+  "brand": {
+    "id": 1
+  }
+}
+
+<> 2021-11-18T195215.200.json
+
+###
+PUT http://localhost:3000/laptop/7
+Content-Type: application/json
+
+{
+  "screenSize": {
+    "id": 1
+  },
+  "screenResolution": {
+    "id": 1
+  },
+  "promotions": [
+    {
+      "id": 2
+    },
+    {
+      "id": 1
+    }
+  ]
+}
+
+<> 2021-11-18T195531.200.json
+<> 2021-11-18T195426.200.json
+<> 2021-11-18T195249.200.json
+<> 2021-11-18T195008.200.json
+<> 2021-11-18T194451.200.json
+<> 2021-11-18T194408.200.json
+<> 2021-11-18T194239.200.json
+<> 2021-11-18T193734.200.json
+<> 2021-11-18T193709.400.html
+<> 2021-11-18T193334.200.json
+<> 2021-11-18T193054.200.json
+<> 2021-11-18T193006.200.json
+<> 2021-11-18T192900.200.json
+
+###
+DELETE http://localhost:3000/laptop/7
+
+###
+POST http://localhost:3000/laptop/reserve/1
+
+<> 2021-11-18T201754.200.json
+<> 2021-11-18T200122.200.json
+<> 2021-11-18T200042.200.json
+<> 2021-11-18T195531.200.json
+<> 2021-11-18T195426.200.json
+<> 2021-11-18T195249.200.json
+<> 2021-11-18T195008.200.json
+<> 2021-11-18T194451.200.json
+<> 2021-11-18T194408.200.json
+<> 2021-11-18T194239.200.json
+<> 2021-11-18T193734.200.json
+<> 2021-11-18T193709.400.html
+<> 2021-11-18T193334.200.json
+<> 2021-11-18T193054.200.json
+<> 2021-11-18T193006.200.json
+<> 2021-11-18T192900.200.json
+
+###
+GET http://localhost:3000/laptop
+Accept: application/json
+
+
+
+<> 2021-11-18T192029.200.json
+<> 2021-11-18T191919.200.json
+<> 2021-11-18T191637.200.json
+
