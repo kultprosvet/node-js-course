@@ -28,7 +28,10 @@ laptopRouter.post('/', upload.single('image'), async (req, res) => {
     laptop.description = ''
     await laptop.save()
 
-    if (file?.path) fs.copyFileSync(file?.path, 'public/' + file?.originalname)
+    if (file?.path) {
+      fs.copyFileSync(file?.path, 'public/' + file?.originalname)
+      fs.unlinkSync(file?.path)
+    }
     res.json({ message: 'ok' })
   } catch (e) {
     res.json(e)
