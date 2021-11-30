@@ -1,17 +1,20 @@
 import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql'
-import { User } from '../../../typeorm/models/User'
+import { User } from '../../../../typeorm/models/User'
 import bcrypt from 'bcrypt'
 import { UserRegisterInputGraphQL } from './types/UserRegisterInputGraphQL'
 import { UserRegister } from './types/UserRegister'
-import { Config } from '../../../express/lesson1/config'
+import { Config } from '../../../../express/lesson1/config'
 import jwt from 'jsonwebtoken'
 import { UserGraphQL } from './types/UserGraphQL'
+import { AppContext } from './types/AppContext'
 
 @Resolver()
 export class UserResolver {
   @Mutation(() => UserRegister)
   async userRegister(
-    @Arg('data', () => UserRegisterInputGraphQL,{validate:{groups:['register']}})
+    @Arg('data', () => UserRegisterInputGraphQL, {
+      validate: { groups: ['register'] },
+    })
     data: UserRegisterInputGraphQL
   ): Promise<UserRegister> {
     let user = await User.findOne({ where: { userName: data.userName } })
@@ -37,8 +40,9 @@ export class UserResolver {
   }
   @Mutation(() => UserRegister)
   async userLogin(
-    @Arg('data', () => UserRegisterInputGraphQL,{validate:false})
-    data: UserRegisterInputGraphQL
+    @Arg('data', () => UserRegisterInputGraphQL, { validate: false })
+    data: UserRegisterInputGraphQL,
+    @Ctx() ctx: AppContext
   ): Promise<UserRegister> {
     const user = await User.findOneOrFail({
       where: { userName: data.userName },
@@ -51,6 +55,9 @@ export class UserResolver {
         Config.secretKey,
         { expiresIn: '30 days' }
       )
+      ctx.session.res.cookie('token', out.token, {
+        path: '/',
+      })
       return out
     }
     throw new Error('wrong user name or password')
