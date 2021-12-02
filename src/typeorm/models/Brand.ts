@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity('brands')
-export class Brand {
+export class Brand extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
   @Column({ type: 'varchar', length: 100 })

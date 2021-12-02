@@ -5,13 +5,34 @@ schema {
     mutation: Mutation
 }
 
+type BrandGraphQL {
+    id: ID!
+    name: String!
+}
+
+type ImageGraphQL {
+    id: Float!
+    url: String!
+}
+
+type LaptopGraphQL {
+    brand: BrandGraphQL
+    id: ID!
+    images: [ImageGraphQL!]
+    model: String!
+    price: Float!
+}
+
 type Mutation {
+    imageAdd(data: ImageInputGraphQL!): Boolean!
+    upload(file: Upload!): Boolean!
     userLogin(data: UserRegisterInputGraphQL!): UserRegister!
     userRegister(data: UserRegisterInputGraphQL!): UserRegister!
 }
 
 type Query {
     helloWorld: String
+    laptopList: [LaptopGraphQL!]!
     sayHi(msg: String): String!
     userMe: UserGraphQL!
 }
@@ -27,6 +48,11 @@ type UserRegister {
     user: UserGraphQL!
 }
 
+input ImageInputGraphQL {
+    file: Upload!
+    laptopId: Int!
+}
+
 input UserRegisterInputGraphQL {
     password: String!
     userName: String!
@@ -35,3 +61,6 @@ input UserRegisterInputGraphQL {
 
 "The javascript `Date` as string. Type represents date and time as the ISO Date string."
 scalar DateTime
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
