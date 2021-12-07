@@ -3,6 +3,7 @@
 schema {
     query: Query
     mutation: Mutation
+    subscription: Subscription
 }
 
 type BrandGraphQL {
@@ -17,7 +18,8 @@ type ImageGraphQL {
 
 type LaptopGraphQL {
     brand: BrandGraphQL
-    id: ID!
+    description: String
+    id: ID
     images: [ImageGraphQL!]
     model: String!
     price: Float!
@@ -25,6 +27,7 @@ type LaptopGraphQL {
 
 type Mutation {
     imageAdd(data: ImageInputGraphQL!): Boolean!
+    updateLaptop(data: LaptopInputGraphQL!): LaptopGraphQL!
     upload(file: Upload!): Boolean!
     userLogin(data: UserRegisterInputGraphQL!): UserRegister!
     userRegister(data: UserRegisterInputGraphQL!): UserRegister!
@@ -32,9 +35,15 @@ type Mutation {
 
 type Query {
     helloWorld: String
+    laptop(id: Int!): LaptopGraphQL!
     laptopList: [LaptopGraphQL!]!
     sayHi(msg: String): String!
     userMe: UserGraphQL!
+}
+
+type Subscription {
+    laptopUpdates: LaptopGraphQL!
+    laptopUpdatesById(id: Int!): LaptopGraphQL!
 }
 
 type UserGraphQL {
@@ -51,6 +60,13 @@ type UserRegister {
 input ImageInputGraphQL {
     file: Upload!
     laptopId: Int!
+}
+
+input LaptopInputGraphQL {
+    description: String
+    id: ID!
+    model: String
+    price: Float
 }
 
 input UserRegisterInputGraphQL {
