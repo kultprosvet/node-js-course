@@ -91,13 +91,13 @@ export class LaptopResolver {
   laptopUpdates(@Root() laptop: Laptop): LaptopGraphQL {
     return laptop as any
   }
+  @Authorized()
   @Subscription(() => LaptopGraphQL, {
     topics: 'LAPTOPS_UPDATES',
     filter: ({ payload, args, context }) => {
       return payload.id == args.id
     },
   })
-  @Authorized()
   laptopUpdatesById(
     @Arg('id', () => Int) id: number,
     @Root() laptop: Laptop

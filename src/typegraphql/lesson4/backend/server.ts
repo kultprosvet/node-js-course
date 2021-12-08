@@ -67,12 +67,16 @@ async function startServer() {
         if (cookies?.token) {
           out.user = jwt.verify(cookies?.token, Config.secretKey)
         }
+        out.foo = 'bar'
         // console.log('ws', ctx.request.headers)
         return out
       },
-      onDisconnect: () => {
-        console.log('disconnect')
+      onDisconnect: async (sock: any, context: any) => {
+        const ctx = await context.initPromise
+        console.log('disconnect', ctx)
       },
+
+      keepAlive: 100,
     },
     {
       // This is the `httpServer` we created in a previous step.
